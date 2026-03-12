@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Lecturer Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+
+<h2>Create Lecture Session</h2>
+<input id="courseCode" placeholder="Course Code">
+<input type="date" id="date">
+<button onclick="createLecture()">Create Session</button>
+<h3>QR Code</h3>
+<canvas id="qrcode"></canvas>
+<br><br>
+<button onclick="viewReport()">View Attendance Report</button>
+<script src="script.js"></script>
+</body>
+
+</html>
