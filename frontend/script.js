@@ -69,7 +69,7 @@ async function createLecture() {
 function generateQR(lectureId) {
 
   // URL students will visit when they scan the QR
-  const url = `https://pronavy-neymar-untumidly.ngrok-free.dev/frontend/scan.html?lectureId=${lectureId}`;
+  const url = `https://pronavy-neymar-untumidly.ngrok-free.dev/scan.html?lectureId=${lectureId}`;
 
   QRCode.toCanvas(
     document.getElementById("qrcode"),
