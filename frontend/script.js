@@ -15,7 +15,7 @@ Handles:
    ============================== */
 
 // Backend API URL (replace when deployed)
-const API = "https://aatu-attendance-system-api.onrender.com/";
+const API = "https://aatu-attendance-system-api.onrender.com";
 
 // Stores the current lecture session
 let currentLectureId = null;
@@ -38,7 +38,7 @@ async function createLecture() {
       alert("Please enter course code and date");
       return;
     }
-
+    alert("Creating lecture session... please wait");
     // Send request to backend
     const res = await axios.post(`${API}/lectures`, {
       courseCode,
