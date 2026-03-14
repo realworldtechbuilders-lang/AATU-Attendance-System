@@ -15,7 +15,7 @@ Handles:
    ============================== */
 
 // Backend API URL (replace when deployed)
-const API = "YOUR_BACKEND_URL";
+const API = "https://aatu-attendance-system-api.onrender.com/";
 
 // Stores the current lecture session
 let currentLectureId = null;
@@ -69,7 +69,7 @@ async function createLecture() {
 function generateQR(lectureId) {
 
   // URL students will visit when they scan the QR
-  const url = `https://pronavy-neymar-untumidly.ngrok-free.dev/scan.html?lectureId=${lectureId}`;
+  const url = `${window.location.origin}/scan.html?lectureId=${lectureId}`;
 
   QRCode.toCanvas(
     document.getElementById("qrcode"),
