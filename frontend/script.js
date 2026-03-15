@@ -34,17 +34,22 @@ async function createLecture() {
     const date = document.getElementById("date").value;
 
     // Basic validation
+    const status = document.getElementById("status");
+
     if (!courseCode || !date) {
-      alert("Please enter course code and date");
+      status.innerText = "Please enter course code and date";
       return;
     }
-    alert("Creating lecture session... please wait");
-    // Send request to backend
+
+    status.innerText = "Creating lecture session... please wait";
+
     const res = await axios.post(`${API}/lectures`, {
       courseCode,
       date,
       lecturer: "Demo Lecturer"
     });
+
+    status.innerText = "Lecture created successfully";
 
     // Save lectureId returned by backend
     currentLectureId = res.data.lectureId;
@@ -114,6 +119,9 @@ async function markAttendance() {
       return;
     }
 
+    document.getElementById("message").innerText =
+      "Recording attendance... please wait";
+
     const res = await axios.post(`${API}/attendance`, {
       matricNumber,
       lectureId
@@ -127,7 +135,7 @@ async function markAttendance() {
     console.error("Attendance error:", error);
 
     document.getElementById("message").innerText =
-      "Error recording attendance";
+      error.response?.data?.message || "Error recording attendance";
 
   }
 
@@ -218,6 +226,36 @@ function calculateStats(data) {
 
 }
 
+/* ==============================
+   Check Exam Eligibility
+   ============================== */
+
+async function checkEligibility() {
+
+  const courseCode = document.getElementById("courseCode").value;
+
+  const res = await axios.get(`${API}/attendance/eligibility/${courseCode}`);
+
+  const data = res.data;
+
+  const table = document.getElementById("tableBody");
+
+  table.innerHTML = "";
+
+  data.forEach(student => {
+
+    table.innerHTML += `
+      <tr>
+        <td>${student.name}</td>
+        <td>${student.matricNumber}</td>
+        <td>${student.percentage}%</td>
+        <td>${student.eligible ? "Eligible" : "Not Eligible"}</td>
+      </tr>
+    `;
+
+  });
+
+}
 
 /* ==============================
    AUTO LOAD REPORT PAGE

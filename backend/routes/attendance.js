@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Attendance = require("../models/Attendance");
 const Student = require("../models/Student");
+const Lecture = require("../models/Lecture");
 
 
 /* ==============================
@@ -90,5 +91,54 @@ router.get("/:lectureId", async (req, res) => {
 
 });
 
+/* ==============================
+   EXAM ELIGIBILITY
+============================== */
+
+router.get("/eligibility/:courseCode", async (req, res) => {
+
+  try {
+
+    const courseCode = req.params.courseCode;
+
+    // total lectures held for the course
+    const totalLectures = await Lecture.countDocuments({ courseCode });
+
+    const students = await Student.find();
+
+    const results = [];
+
+    for (let student of students) {
+
+      const attendanceCount = await Attendance.countDocuments({
+        studentId: student._id
+      });
+
+      const percentage = totalLectures === 0
+        ? 0
+        : Math.round((attendanceCount / totalLectures) * 100);
+
+      const eligible = percentage >= 75;
+
+      results.push({
+        name: student.name,
+        matricNumber: student.matricNumber,
+        attendance: attendanceCount,
+        totalLectures,
+        percentage,
+        eligible
+      });
+
+    }
+
+    res.json(results);
+
+  } catch (error) {
+
+    res.status(500).json({ error: error.message });
+
+  }
+
+});
 
 module.exports = router;
