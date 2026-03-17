@@ -255,6 +255,7 @@ async function checkEligibility() {
         <tr>
           <td>${student.name}</td>
           <td>${student.matricNumber}</td>
+          <td>${student.attended}/${student.totalLectures}</td>
           <td>${student.percentage}%</td>
           <td>${student.eligible ? "Eligible" : "Not Eligible"}</td>
         </tr>
