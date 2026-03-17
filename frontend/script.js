@@ -213,16 +213,17 @@ async function loadReport() {
 
 function calculateStats(data) {
 
-  // Demo value (in real system this comes from database)
-  const totalStudents = 5;
+  const totalStudents = 5; // later we can fetch from DB
 
   const present = data.length;
   const absent = totalStudents - present;
+  const rate = totalStudents === 0 ? 0 : Math.round((present / totalStudents) * 100);
 
-  const rate = Math.round((present / totalStudents) * 100);
-
-  document.getElementById("stats").innerText =
-    `Total Students: ${totalStudents} | Present: ${present} | Absent: ${absent} | Attendance Rate: ${rate}%`;
+  // Update UI
+  document.getElementById("totalStudents").innerText = totalStudents;
+  document.getElementById("present").innerText = present;
+  document.getElementById("absent").innerText = absent;
+  document.getElementById("rate").innerText = rate + "%";
 
 }
 
