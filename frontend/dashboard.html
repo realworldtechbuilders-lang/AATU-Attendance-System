@@ -10,35 +10,56 @@
 
 <body>
 
-<h2>Create Lecture Session</h2>
-<input id="courseCode" placeholder="Course Code">
-<input type="date" id="date">
-<button onclick="createLecture()">Create Session</button>
-<p id="status"></p><p id="status"></p>
-<h3>QR Code</h3>
-<canvas id="qrcode"></canvas>
-<br><br>
-<button onclick="viewReport()">View Attendance Report</button>
-<button onclick="checkEligibility()">Check Exam Eligibility</button>
+<div class="container">
 
-<h3>Results</h3>
+  <h1>AATU Smart Attendance System</h1>
 
-<table border="1">
-<thead>
-<tr>
-<th>Name</th>
-<th>Matric Number</th>
-<th>Attendance</th>
-<th>Percentage %</th>
-<th>Status</th>
-</tr>
-</thead>
+  <!-- CREATE LECTURE -->
+  <div class="card">
+    <h2>Create Lecture Session</h2>
 
-<tbody id="tableBody"></tbody>
+    <input id="courseCode" placeholder="Course Code">
+    <input type="date" id="date">
 
-</table>
+    <button onclick="createLecture()">Create Session</button>
+    <p id="status"></p>
+  </div>
+
+  <!-- QR CODE -->
+  <div class="card">
+    <h2>QR Code</h2>
+    <canvas id="qrcode"></canvas>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="actions">
+    <button onclick="viewReport()">View Attendance Report</button>
+    <button onclick="checkEligibility()">Check Exam Eligibility</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="card">
+    <h2>Results</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Matric Number</th>
+          <th>Attendance</th>
+          <th>Percentage %</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+</div>
 
 <script src="script.js"></script>
+
 </body>
 
 </html>
