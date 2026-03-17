@@ -5,6 +5,67 @@
 <title>Mark Attendance</title>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+function getLocationAndMarkAttendance() {
+
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async function(position) {
+
+    const studentLat = position.coords.latitude;
+    const studentLng = position.coords.longitude;
+
+    // Example lecture hall location
+    const lectureLat = 7.2508;
+    const lectureLng = 5.2103;
+
+    const distance = calculateDistance(
+      studentLat,
+      studentLng,
+      lectureLat,
+      lectureLng
+    );
+
+    if (distance > 50) {
+      alert("You are too far from the lecture hall");
+      return;
+    }
+
+    // call your existing attendance function
+    markAttendance();
+
+  });
+
+}
+</script>
+
+<script>
+function calculateDistance(lat1, lon1, lat2, lon2) {
+
+  const R = 6371e3;
+
+  const φ1 = lat1 * Math.PI/180;
+  const φ2 = lat2 * Math.PI/180;
+
+  const Δφ = (lat2-lat1) * Math.PI/180;
+  const Δλ = (lon2-lon1) * Math.PI/180;
+
+  const a =
+    Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+    Math.cos(φ1) *
+    Math.cos(φ2) *
+    Math.sin(Δλ/2) *
+    Math.sin(Δλ/2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+  return R * c;
+
+}
+</script>
 
 </head>
 
@@ -14,7 +75,10 @@
 
 <input id="matricNumber" placeholder="Enter Matric Number">
 
-<button onclick="markAttendance()">Mark Attendance</button>
+<!-- <button onclick="markAttendance()">Mark Attendance</button> -->
+<button onclick="getLocationAndMarkAttendance()">
+Submit Attendance
+</button>
 
 <p id="message"></p>
 
