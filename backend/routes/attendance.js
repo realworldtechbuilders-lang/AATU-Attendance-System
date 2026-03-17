@@ -199,5 +199,4 @@ router.get("/:lectureId", async (req, res) => {
 });
 
 
-
 module.exports = router;
