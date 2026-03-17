@@ -4,6 +4,7 @@ const router = express.Router();
 const Attendance = require("../models/Attendance");
 const Student = require("../models/Student");
 const Lecture = require("../models/Lecture");
+const PDFDocument = require("pdfkit");
 
 
 /* ==============================
@@ -119,6 +120,57 @@ router.get("/eligibility/:courseCode", async (req, res) => {
     res.status(500).json({ error: error.message });
 
   }
+
+});
+
+/* ==============================
+   ELIGIBILITY PDF
+============================== */
+
+router.get("/eligibility-pdf/:courseCode", async (req, res) => {
+
+  const courseCode = req.params.courseCode;
+
+  const lectures = await Lecture.find({ courseCode });
+
+  const lectureIds = lectures.map(l => l._id);
+
+  const totalLectures = lectures.length;
+
+  const students = await Student.find();
+
+  const doc = new PDFDocument();
+
+  res.setHeader("Content-Type", "application/pdf");
+
+  doc.pipe(res);
+
+  doc.fontSize(18).text(`${courseCode} Exam Eligibility List`, {
+    align: "center"
+  });
+
+  doc.moveDown();
+
+  for (let student of students) {
+
+    const attendanceCount = await Attendance.countDocuments({
+      studentId: student._id,
+      lectureId: { $in: lectureIds }
+    });
+
+    const percentage = totalLectures === 0
+      ? 0
+      : Math.round((attendanceCount / totalLectures) * 100);
+
+    const eligible = percentage >= 75 ? "Eligible" : "Not Eligible";
+
+    doc.text(
+      `${student.name} - ${student.matricNumber} - ${percentage}% - ${eligible}`
+    );
+
+  }
+
+  doc.end();
 
 });
 

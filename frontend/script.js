@@ -232,29 +232,42 @@ function calculateStats(data) {
 
 async function checkEligibility() {
 
-  const courseCode = document.getElementById("courseCode").value;
+  try {
 
-  const res = await axios.get(`${API}/attendance/eligibility/${courseCode}`);
+    const courseCode = document.getElementById("courseCode").value;
 
-  const data = res.data;
+    if (!courseCode) {
+      alert("Enter course code first");
+      return;
+    }
 
-  const table = document.getElementById("tableBody");
+    const res = await axios.get(`${API}/attendance/eligibility/${courseCode}`);
 
-  table.innerHTML = "";
+    const data = res.data;
 
-  data.forEach(student => {
+    const table = document.getElementById("tableBody");
 
-    table.innerHTML += `
-      <tr>
-        <td>${student.name}</td>
-        <td>${student.matricNumber}</td>
-        <td>${student.attended}/${student.totalLectures}</td>
-        <td>${student.percentage}%</td>
-        <td>${student.eligible ? "Eligible" : "Not Eligible"}</td>
-      </tr>
-    `;
+    table.innerHTML = "";
 
-  });
+    data.forEach(student => {
+
+      table.innerHTML += `
+        <tr>
+          <td>${student.name}</td>
+          <td>${student.matricNumber}</td>
+          <td>${student.percentage}%</td>
+          <td>${student.eligible ? "Eligible" : "Not Eligible"}</td>
+        </tr>
+      `;
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+    alert("Failed to fetch eligibility data");
+
+  }
 
 }
 
