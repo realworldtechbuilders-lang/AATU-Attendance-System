@@ -189,7 +189,9 @@ async function loadReport() {
         <tr>
           <td>${student.name}</td>
           <td>${student.matricNumber}</td>
-          <td>Present</td>
+          <td>
+            <span class="status eligible">Present</span>
+          </td>
         </tr>
       `;
 
