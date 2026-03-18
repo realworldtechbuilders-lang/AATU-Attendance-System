@@ -1,3 +1,6 @@
+/* ==============================
+   GLOBAL STYLES
+============================== */
 body {
   font-family: Arial, sans-serif;
   background: #f5f7fa;
@@ -5,16 +8,21 @@ body {
   padding: 20px;
 }
 
+/* Main container */
 .container {
   max-width: 900px;
   margin: auto;
 }
 
+/* Page title */
 h1 {
   text-align: center;
   margin-bottom: 30px;
 }
 
+/* ==============================
+   CARD COMPONENT (Reusable UI)
+============================== */
 .card {
   background: #ffffff;
   padding: 20px;
@@ -23,6 +31,9 @@ h1 {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* ==============================
+   FORM ELEMENTS
+============================== */
 input {
   display: block;
   width: 100%;
@@ -32,6 +43,7 @@ input {
   border: 1px solid #ccc;
 }
 
+/* Buttons */
 button {
   padding: 10px 15px;
   border: none;
@@ -45,12 +57,16 @@ button:hover {
   background: #1b5fbd;
 }
 
+/* Action buttons container */
 .actions {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
+/* ==============================
+   TABLE STYLES
+============================== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -66,6 +82,10 @@ th {
   background: #2d89ef;
   color: white;
 }
+
+/* ==============================
+   STATISTICS BAR
+============================== */
 .stats {
   display: flex;
   justify-content: space-between;
@@ -96,6 +116,10 @@ th {
   margin: 5px 0 0;
   color: #555;
 }
+
+/* ==============================
+   ELIGIBILITY SUMMARY
+============================== */
 .eligibility-summary {
   display: flex;
   gap: 20px;
@@ -112,16 +136,40 @@ th {
   font-weight: bold;
 }
 
+/* Green box */
 .eligible-box {
-  background: #28a745; /* green */
+  background: #28a745;
 }
 
+/* Red box */
 .not-eligible-box {
-  background: #dc3545; /* red */
+  background: #dc3545;
 }
 
 .eligible-box h3,
 .not-eligible-box h3 {
   margin: 0;
   font-size: 28px;
+}
+
+/* ==============================
+   STATUS BADGES (NEW ADDITION)
+============================== */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Green badge */
+.status.eligible {
+  background: #28a745;
+}
+
+/* Red badge */
+.status.not-eligible {
+  background: #dc3545;
 }
