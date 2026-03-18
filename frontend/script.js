@@ -249,10 +249,20 @@ async function checkEligibility() {
     const data = res.data;
 
     const table = document.getElementById("tableBody");
-
     table.innerHTML = "";
 
+    // ✅ ADD THIS
+    let eligibleCount = 0;
+    let notEligibleCount = 0;
+
     data.forEach(student => {
+
+      // ✅ COUNT LOGIC
+      if (student.eligible) {
+        eligibleCount++;
+      } else {
+        notEligibleCount++;
+      }
 
       table.innerHTML += `
         <tr>
@@ -269,6 +279,10 @@ async function checkEligibility() {
       `;
 
     });
+
+    // ✅ NOW UPDATE UI
+    document.getElementById("eligibleCount").innerText = eligibleCount;
+    document.getElementById("notEligibleCount").innerText = notEligibleCount;
 
   } catch (error) {
 
