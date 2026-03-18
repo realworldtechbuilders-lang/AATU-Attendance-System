@@ -5,7 +5,7 @@
 <title>Mark Attendance</title>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
+<!-- <script>
 function getLocationAndMarkAttendance() {
 
   if (!navigator.geolocation) {
@@ -40,9 +40,9 @@ function getLocationAndMarkAttendance() {
   });
 
 }
-</script>
+</script> -->
 
-<script>
+<!-- <script>
 function calculateDistance(lat1, lon1, lat2, lon2) {
 
   const R = 6371e3;
@@ -65,7 +65,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   return R * c;
 
 }
-</script>
+</script> -->
 
 </head>
 
@@ -75,10 +75,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 <input id="matricNumber" placeholder="Enter Matric Number">
 
-<!-- <button onclick="markAttendance()">Mark Attendance</button> -->
-<button onclick="getLocationAndMarkAttendance()">
+<button onclick="markAttendance()">Mark Attendance</button>
+<!-- <button onclick="getLocationAndMarkAttendance()">
 Submit Attendance
-</button>
+</button> -->
 
 <p id="message"></p>
 

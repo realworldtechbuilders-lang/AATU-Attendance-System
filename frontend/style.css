@@ -96,3 +96,32 @@ th {
   margin: 5px 0 0;
   color: #555;
 }
+.eligibility-summary {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.eligible-box,
+.not-eligible-box {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.eligible-box {
+  background: #28a745; /* green */
+}
+
+.not-eligible-box {
+  background: #dc3545; /* red */
+}
+
+.eligible-box h3,
+.not-eligible-box h3 {
+  margin: 0;
+  font-size: 28px;
+}
