@@ -148,19 +148,64 @@ async function markAttendance() {
 
 function viewReport() {
 
-  // Ensure lecture exists before opening report
   if (!currentLectureId) {
-
     alert("Create a lecture session first");
     return;
-
   }
 
-  // Redirect to report page
-  window.location.href = `report.html?lectureId=${currentLectureId}`;
+  const courseCode = document.getElementById("courseCode").value;
 
+  if (!courseCode) {
+    alert("Enter course code");
+    return;
+  }
+
+  window.location.href =
+    `report.html?lectureId=${currentLectureId}&courseCode=${courseCode}`;
 }
 
+/* ==============================
+   GET COURSECODE
+   ============================== */
+function getCourseCode() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("courseCode");
+}
+
+/* ==============================
+   ELIGIBILITY SUMMARY
+   ============================== */
+async function loadEligibilitySummary() {
+
+  try {
+
+    const courseCode = getCourseCode();
+
+    if (!courseCode) return;
+
+    const res = await axios.get(`${API}/attendance/eligibility/${courseCode}`);
+
+    const data = res.data;
+
+    let eligibleCount = 0;
+    let notEligibleCount = 0;
+
+    data.forEach(student => {
+      if (student.eligible) {
+        eligibleCount++;
+      } else {
+        notEligibleCount++;
+      }
+    });
+
+    document.getElementById("eligibleCount").innerText = eligibleCount;
+    document.getElementById("notEligibleCount").innerText = notEligibleCount;
+
+  } catch (error) {
+    console.error("Eligibility error:", error);
+  }
+
+}
 
 /* ==============================
    LOAD REPORT DATA
@@ -298,7 +343,6 @@ async function checkEligibility() {
    ============================== */
 
 if (window.location.pathname.includes("report.html")) {
-
   loadReport();
-
+  loadEligibilitySummary();
 }
